@@ -1,0 +1,23 @@
+-Añadimos un repositorio necessario para los requerimientos a nuestros sources y actualizamos la lista de paquetes
+echo 'deb http://http.debian.net/debian wheezy-backports main' > /etc/apt/sources.list.d/backports.list && apt update
+
+-Instalamos paquetes de requerimiento
+apt install apt-transport-https ca-certificates dirmngr
+
+-Añadimos la confianza del repositorio que usaremos
+apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+-Añadimos el repositorio de docker a nuestros sources y actualizamos la lista de paquetes
+echo 'deb https://apt.dockerproject.org/repo debian-wheezy main' > /etc/apt/sources.list.d/docker.list && apt update
+
+-Instalamos docker y algunos componentes
+apt install docker docker-engine docker-compose
+
+-Comprobamos el estado del demonio
+/etc/init.d/docker status
+
+-Hacemos que se autoinicie cada vez
+update-rc.d docker enable
+
+-Comprobamos que funciona
+docker info

@@ -1,0 +1,68 @@
+--Docker Basics. 2017--
+
+*******************Generales********************
+
+-Version e info
+docker version
+docker info
+
+-Dar permisos a un usuario para manejar docker
+sudo usermod -aG docker $(whoami) <- lanzar desde el usuario
+usermod -aG docker <username> <- lanzar desde root
+
+************************************************
+
+**************Manejo de imágenes****************
+
+-Listar imágenes
+docker images
+
+-Descargar imagen sin ejecutar contenedor
+docker pull <contenedor>
+
+-Eliminar imagen
+docker rmi <imagen> <- algunas imágenes tiene nombres simples
+docker rmi <myusername/myapp> <- otras imagenes tienen nombre mas largo incluyendo el usuario y separado por una barra "/"
+
+-Construir imagen a partir de Dockerfile (lanzar desde el directorio del Dockerfile)
+docker build -t <myusername/myapp> .
+docker build -t <myusername/myapp:mytag> . <- este además le pone el tag a la imagen
+
+-Eliminar las imágenes intermedias
+docker rmi $(docker images -q -f dangling=true)
+
+************************************************
+
+************Manejo de contenedores**************
+
+-Listar contenedores
+docker ps <- solo activos
+docker ps -a <- todos incluyendo los que están parados
+
+-Ejecutar contenedor (si no tiene la imagen en local la descargará)
+docker run <contenedor>
+docker run hello-world <- este ejecuta concretamente el contenedor hello-world
+
+-Ejecutar contenedor en background abriendo un puerto (puerto host:puerto contenedor)
+docker run –d –p 8080:80 --name <mycontainer> <myusername/myapp>
+
+-Ejecutar contenedor y abrir una sesión interactiva con él (un bash por ejemplo)
+docker run --ti --name <mycontainer> <myusername/myapp> /bin/bash
+
+-Ejecutar contenedor efímero mapeando una carpeta del host al contenedor
+docker run --rm –v /path/host:/path/contenedor --name <mycontainer> <myusername/myapp>
+
+-Ejecutar algo (un bash por ejemplo) en un contenedor que ya está en marcha
+docker exec <mycontainer> bash
+
+-Parar contenedores
+docker stop <contenedorId> <- parada normal
+docker kill <contenedorId> <- forzando
+
+-Eliminar contenedor
+docker rm <contenedorId> <- uno concreto (no nos dejará si el contenedor está en marcha)
+docker rm -f <contenedorId> <- uno concreto forzando (sí nos dejará incluso con el contenedor está en marcha)
+docker rm $(docker ps -a -q) <- todos los parados
+
+NOTA: si al crear un contenedor se le asigna un nombre con --name, se podrá usar el id o dicho nombre para lanzar comandos sobre él
+************************************************

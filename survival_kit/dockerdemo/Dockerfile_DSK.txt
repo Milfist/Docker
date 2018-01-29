@@ -1,0 +1,33 @@
+--Docker Basics. 2017--
+
+***************Dockerfile Sentences*************
+
+FROM <- setea la imagen base para las siguientes instrucciones.
+
+MAINTAINER <- (deprecated - usar LABEL en su lugar) Setea el campo Author de la imagen que se genere.
+
+LABEL <- aplica valores de metadatos con formato key/value a las imágenes.
+
+RUN <- ejecuta cualquier comando eun una nueva capa de la imagen.
+
+CMD <- setea el comando y/o argumentos por defecto a ejecutar en una imagen, pero estos pueden ser sobreescritos desde la línea de comando docker run.
+
+ENTRYPOINT <- como CMD pero se va a ejecutar siempre y no puede evitarse.
+
+EXPOSE <- informa a Docker que el contenedor escucha ene el puerto especificado. No implica que sea accesible desde el host.
+
+ENV <- setea una variable de entorno.
+
+ADD <- copia ficheros o directorios al contenedor. Invalida la caché, se recomienda usar mejor COPY.
+
+COPY <- copia ficheros o directorios al contenedor.
+
+VOLUME <- crea un punto de montaje para volúmenes externos o otros contenedores.
+
+USER <- setea el nombre de usuario con el que se ejecutarán los siguientes comandos de tipo RUN / CMD / ENTRYPOINT.
+
+WORKDIR <- setea el directorio de trabajo desde el cual se ejecutarán los siguientes comandos.
+
+ARG <- define variables que se recogerán de parámetros en el momento de la construcción.
+
+************************************************

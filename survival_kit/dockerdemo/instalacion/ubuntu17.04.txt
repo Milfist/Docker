@@ -1,0 +1,17 @@
+-Añadimos la confianza del repositorio que usaremos
+apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+-Añadimos el repositorio de docker a nuestros sources y actualizamos la lista de paquetes
+apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-zesty main' && apt update
+
+-Instalamos docker y algunos componentes
+apt install docker docker-engine docker-compose
+
+-Comprobamos el estado del demonio
+/etc/init.d/docker status
+
+-Hacemos que se autoinicie cada vez
+update-rc.d docker enable
+
+-Comprobamos que funciona
+docker info
